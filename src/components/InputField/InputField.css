@@ -1,12 +1,13 @@
 .input{
     width: 50%;
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .inputBox {
     width: 70%;
     padding: 12px 20px;
-    margin: 8px 0;
     display: inline-block;
     border-radius: 4px;
     border: none;
@@ -16,10 +17,11 @@
 .inputBox:focus {
     outline: none;
 }
+
 .inputSubmit {
     width: 50px;
     height: 39px;
-    margin: 12px;
+    margin-left: 10px;
     border-radius: 5px;
     right: 0;
     border: none;

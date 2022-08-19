@@ -1,9 +1,17 @@
-.todos, .todosRemove{
+.todos{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 80%;
-    margin: 5%;
+    margin: 0 2.5% 0 5%;
+}
+
+.todosRemove{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 5% 0 2.5%;
 }
 
 .container{
@@ -11,4 +19,14 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.dragActive{
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dragCompleted{
+    background-color: #f44336;
+    color: white;
 }

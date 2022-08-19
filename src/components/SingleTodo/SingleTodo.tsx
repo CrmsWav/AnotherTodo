@@ -4,14 +4,16 @@ import "./SingleTodo.css";
 import {FaRegEdit} from "react-icons/fa";
 import {BsCheckCircle} from "react-icons/bs";
 import {MdOutlineDeleteForever} from "react-icons/md";
+import {Draggable} from "@hello-pangea/dnd";
 
 type Props = {
+  index: number;
   todo: Todo;
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>
 }
 
-const SingleTodo = ({todo, todos, setTodos}: Props) => {
+const SingleTodo = ({index, todo, todos, setTodos}: Props) => {
   const [edit, setEdit] = React.useState<boolean>(false);
   const [editTodo, setEditTodo] = React.useState<string>(todo.description);
 
@@ -43,36 +45,38 @@ const SingleTodo = ({todo, todos, setTodos}: Props) => {
   }, [edit]);
 
   return (
-    <form className="singleTodo" onSubmit={(e) => handleEdit(e, todo.id)}>
-      {edit ? (
-          <input value={editTodo} onChange={(e) => setEditTodo(e.target.value)} className="singleTodoTest" ref={inputRef} />
-        ) : todo.completed ? (
-          <s className="singleTodoText">{todo.description}</s>
-        ) : (
-          <span className="singleTodoText">{todo.description}</span>
-        )}
+    <Draggable draggableId={todo.id.toString()} index={index}>
+      {(provided, snapshot) => (
+        <form className={`singleTodo ${snapshot.isDragging ? "drag" : ""}`} onSubmit={(e) => handleEdit(e, todo.id)} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+          {edit ? (
+              <input value={editTodo} onChange={(e) => setEditTodo(e.target.value)} className="singleTodoTest" ref={inputRef} />
+            ) : todo.completed ? (
+              <s className="singleTodoText">{todo.description}</s>
+            ) : (
+              <span className="singleTodoText">{todo.description}</span>
+            )}
 
-      <div className="icons">
-        <span
-          className="icon"
-          onClick={() => {
-            if (!edit && !todo.completed) {
-              setEdit(!edit);
-            }
-          }}
-        >
-          <FaRegEdit />
-        </span>
+          <div className="icons">
+            <span onClick={() => {
+                if (!edit && !todo.completed) {
+                  setEdit(!edit);
+                }
+              }}
+            >
+              <FaRegEdit className="icon" />
+            </span>
 
-        <span className="icon" onClick={() => handleDelete(todo.id)}>
-          <MdOutlineDeleteForever />
-        </span>
+            <span onClick={() => handleDelete(todo.id)}>
+              <MdOutlineDeleteForever className="icon" />
+            </span>
 
-        <span className="icon" onClick={() => handleDone(todo.id)}>
-          <BsCheckCircle />
-        </span>
-      </div>
-    </form>
+            <span onClick={() => handleDone(todo.id)}>
+              <BsCheckCircle className="icon" />
+            </span>
+          </div>
+        </form>
+      )}
+    </Draggable>
   );
 }
 

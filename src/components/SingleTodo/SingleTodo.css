@@ -11,18 +11,26 @@
     color: black;
 }
 
-.singleTodoDescription{
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 10px;
+.singleTodoText{
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icons{
-
+    margin: 5% 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .icon{
     font-size: 1.5em;
     margin-right: 10px;
     cursor: pointer;
+}
+
+.drag{
+    box-shadow: 0 0 20px black;
 }
